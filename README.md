@@ -1,12 +1,12 @@
 # go-tg
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/mr-linch/go-tg.svg)](https://pkg.go.dev/github.com/mr-linch/go-tg)
-[![go.mod](https://img.shields.io/github/go-mod/go-version/mr-linch/go-tg)](go.mod)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/mr-linch/go-tg?label=latest%20release)](https://github.com/mr-linch/go-tg/releases/latest)
+[![Go Reference](https://pkg.go.dev/badge/github.com/nosefu/go-tg.svg)](https://pkg.go.dev/github.com/nosefu/go-tg)
+[![go.mod](https://img.shields.io/github/go-mod/go-version/nosefu/go-tg)](go.mod)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/nosefu/go-tg?label=latest%20release)](https://github.com/nosefu/go-tg/releases/latest)
 ![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-7.2-blue?logo=telegram)
-[![CI](https://github.com/mr-linch/go-tg/actions/workflows/ci.yml/badge.svg)](https://github.com/mr-linch/go-tg/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/mr-linch/go-tg/branch/main/graph/badge.svg?token=9EI5CEIYXL)](https://codecov.io/gh/mr-linch/go-tg)
-[![Go Report Card](https://goreportcard.com/badge/github.com/mr-linch/go-tg)](https://goreportcard.com/report/github.com/mr-linch/go-tg)
+[![CI](https://github.com/nosefu/go-tg/actions/workflows/ci.yml/badge.svg)](https://github.com/nosefu/go-tg/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/nosefu/go-tg/branch/main/graph/badge.svg?token=9EI5CEIYXL)](https://codecov.io/gh/nosefu/go-tg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/nosefu/go-tg)](https://goreportcard.com/report/github.com/nosefu/go-tg)
 [![[Telegram]](https://img.shields.io/badge/%20chat-@go__tg__devs-blue.svg?style=flat-square)](https://t.me/go_tg_devs)
 
 [![beta](https://img.shields.io/badge/-beta-yellow)](https://go-faster.org/docs/projects/status)
@@ -55,7 +55,7 @@ go-tg is a Go client library for accessing [Telegram Bot API](https://core.teleg
 
 ```bash
 # go 1.18+
-go get -u github.com/mr-linch/go-tg
+go get -u github.com/nosefu/go-tg
 ```
 
 ## Quick Example
@@ -72,8 +72,8 @@ import (
   "syscall"
   "time"
 
-  "github.com/mr-linch/go-tg"
-  "github.com/mr-linch/go-tg/tgb"
+  "github.com/nosefu/go-tg"
+  "github.com/nosefu/go-tg/tgb"
 )
 
 func main() {
@@ -98,7 +98,7 @@ func run(ctx context.Context) error {
         tg.HTML.Text(
           tg.HTML.Bold("👋 Hi, I'm echo bot!"),
           "",
-          tg.HTML.Italic("🚀 Powered by", tg.HTML.Spoiler(tg.HTML.Link("go-tg", "github.com/mr-linch/go-tg"))),
+          tg.HTML.Italic("🚀 Powered by", tg.HTML.Spoiler(tg.HTML.Link("go-tg", "github.com/nosefu/go-tg"))),
         ),
       ).ParseMode(tg.HTML).DoVoid(ctx)
     }, tgb.Command("start", tgb.WithCommandAlias("help"))).
@@ -137,7 +137,7 @@ func run(ctx context.Context) error {
 }
 ```
 
-More examples can be found in [examples](https://github.com/mr-linch/go-tg/tree/main/examples).
+More examples can be found in [examples](https://github.com/nosefu/go-tg/tree/main/examples).
 
 ## API Client
 
@@ -225,7 +225,7 @@ if err := client.SendChatAction(
 
 ### Low-level Bot API methods call
 
-Client has method [`Do`](https://pkg.go.dev/github.com/mr-linch/go-tg#Client.Do) for low-level [requests](https://pkg.go.dev/github.com/mr-linch/go-tg#Request) execution:
+Client has method [`Do`](https://pkg.go.dev/github.com/nosefu/go-tg#Client.Do) for low-level [requests](https://pkg.go.dev/github.com/nosefu/go-tg#Request) execution:
 
 ```go
 req := tg.NewRequest("sendChatAction").
@@ -239,7 +239,7 @@ if err := client.Do(ctx, req, nil); err != nil {
 
 ### Helper methods
 
-Method [`Client.Me()`](https://pkg.go.dev/github.com/mr-linch/go-tg#Client.Me) fetches authorized bot info via [`Client.GetMe()`](https://pkg.go.dev/github.com/mr-linch/go-tg#Client.GetMe) and cache it between calls.
+Method [`Client.Me()`](https://pkg.go.dev/github.com/nosefu/go-tg#Client.Me) fetches authorized bot info via [`Client.GetMe()`](https://pkg.go.dev/github.com/nosefu/go-tg#Client.GetMe) and cache it between calls.
 
 ```go
 me, err := client.Me(ctx)
@@ -256,13 +256,13 @@ There are several ways to send files to Telegram:
 - sending a previously uploaded file by its identifier;
 - sending a file using a URL from the Internet;
 
-The [`FileArg`](https://pkg.go.dev/github.com/mr-linch/go-tg#FileArg) type is used to combine all these methods. It is an object that can be passed to client methods and depending on its contents the desired method will be chosen to send the file.
+The [`FileArg`](https://pkg.go.dev/github.com/nosefu/go-tg#FileArg) type is used to combine all these methods. It is an object that can be passed to client methods and depending on its contents the desired method will be chosen to send the file.
 
 Consider each method by example.
 
 **Uploading a file along with a method call:**
 
-For upload a file you need to create an object [`tg.InputFile`](https://pkg.go.dev/github.com/mr-linch/go-tg#InputFile). It is a structure with two fields: file name and [`io.Reader`](https://pkg.go.dev/io#Reader) with its contents.
+For upload a file you need to create an object [`tg.InputFile`](https://pkg.go.dev/github.com/nosefu/go-tg#InputFile). It is a structure with two fields: file name and [`io.Reader`](https://pkg.go.dev/io#Reader) with its contents.
 
 Type has some handy constructors, for example consider uploading a file from a local file system:
 
@@ -327,13 +327,13 @@ if err := client.SendPhoto(
 }
 ```
 
-Please checkout [examples](https://github.com/mr-linch/go-tg/tree/main/examples) with "File Upload" features for more usecases.
+Please checkout [examples](https://github.com/nosefu/go-tg/tree/main/examples) with "File Upload" features for more usecases.
 
 ### Downloading files
 
-To download a file you need to get its [`FileID`](https://pkg.go.dev/github.com/mr-linch/go-tg#FileID).
-After that you need to call method [`Client.GetFile`](https://pkg.go.dev/github.com/mr-linch/go-tg#Client.GetFile) to get metadata about the file.
-At the end we call method [`Client.Download`](https://pkg.go.dev/github.com/mr-linch/go-tg#Client.Download) to fetch the contents of the file.
+To download a file you need to get its [`FileID`](https://pkg.go.dev/github.com/nosefu/go-tg#FileID).
+After that you need to call method [`Client.GetFile`](https://pkg.go.dev/github.com/nosefu/go-tg#Client.GetFile) to get metadata about the file.
+At the end we call method [`Client.Download`](https://pkg.go.dev/github.com/nosefu/go-tg#Client.Download) to fetch the contents of the file.
 
 ```go
 
@@ -355,7 +355,7 @@ defer f.Close()
 
 ### Interceptors
 
-Interceptors are used to modify or process the request before it is sent to the server and the response before it is returned to the caller. It's like a [[tgb.Middleware](https://pkg.go.dev/github.com/mr-linch/go-tg/tgb#Middleware)], but for outgoing requests.
+Interceptors are used to modify or process the request before it is sent to the server and the response before it is returned to the caller. It's like a [[tgb.Middleware](https://pkg.go.dev/github.com/nosefu/go-tg/tgb#Middleware)], but for outgoing requests.
 
 All interceptors should be registered on the client before the request is made.
 
@@ -380,15 +380,15 @@ client := tg.New("<TOKEN>",
 Arguments of the interceptor are:
 
 - `ctx` - context of the request;
-- `req` - request object [tg.Request](https://pkg.go.dev/github.com/mr-linch/go-tg#Request);
+- `req` - request object [tg.Request](https://pkg.go.dev/github.com/nosefu/go-tg#Request);
 - `dst` - pointer to destination for the response, can be `nil` if the request is made with `DoVoid` method;
 - `invoker` - function for calling the next interceptor or the actual request.
 
 Contrib package has some useful interceptors:
 
-- [InterceptorRetryFloodError](https://pkg.go.dev/github.com/mr-linch/go-tg#NewInterceptorRetryFloodError) - retry request if the server returns a flood error. Parameters can be customized via options;
-- [InterceptorRetryInternalServerError](https://pkg.go.dev/github.com/mr-linch/go-tg#NewInterceptorRetryInternalServerError) - retry request if the server returns an error. Parameters can be customized via options;
-- [InterceptorMethodFilter](https://pkg.go.dev/github.com/mr-linch/go-tg#NewInterceptorMethodFilter) - call underlying interceptor only for specified methods;
+- [InterceptorRetryFloodError](https://pkg.go.dev/github.com/nosefu/go-tg#NewInterceptorRetryFloodError) - retry request if the server returns a flood error. Parameters can be customized via options;
+- [InterceptorRetryInternalServerError](https://pkg.go.dev/github.com/nosefu/go-tg#NewInterceptorRetryInternalServerError) - retry request if the server returns an error. Parameters can be customized via options;
+- [InterceptorMethodFilter](https://pkg.go.dev/github.com/nosefu/go-tg#NewInterceptorMethodFilter) - call underlying interceptor only for specified methods;
 - [InterceptorDefaultParseMethod](https://pkg.go.dev/github.com/mr-linch/go-tg#NewInterceptorDefaultParseMethod) - set default `parse_mode` for messages if not specified.
 
 Interceptors are called in the order they are registered.

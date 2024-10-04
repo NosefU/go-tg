@@ -1,6 +1,6 @@
 package tgb
 
-import tg "github.com/mr-linch/go-tg"
+import tg "github.com/nosefu/go-tg"
 
 // TextMessageCallBuilder contains all common fields for methods sendText, editMessageText, editMessageReplyMarkup.
 // It's useful for building diffrent calls with the same params.

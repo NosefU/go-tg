@@ -25,7 +25,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/mr-linch/go-tg/tgb"
+	"github.com/nosefu/go-tg/tgb"
 )
 
 // KeyFunc is a function that returns a key for a session from update.
@@ -201,7 +201,7 @@ func (manager *Manager[T]) Reset(session *T) {
 	*session = manager.intial
 }
 
-// Filter creates a [github.com/mr-linch/go-tg/tgb.Filter] based on Session data.
+// Filter creates a [github.com/nosefu/go-tg/tgb.Filter] based on Session data.
 //
 // Example:
 //
@@ -209,7 +209,7 @@ func (manager *Manager[T]) Reset(session *T) {
 //	  return session.Step == "name"
 //	})
 //
-// This filter can be used in [github.com/mr-linch/go-tg/tgb.Router] handler registration method:
+// This filter can be used in [github.com/nosefu/go-tg/tgb.Router] handler registration method:
 //
 //	router.Message(func(ctx context.Context, mu *tgb.MessageUpdate) error {
 //	  // ...
@@ -246,7 +246,7 @@ func (manager *Manager[T]) cacheDelSession(update *tgb.Update) {
 	manager.cacheLock.Unlock()
 }
 
-// Wrap allow use manager as [github.com/mr-linch/go-tg/tgb.Middleware].
+// Wrap allow use manager as [github.com/nosefu/go-tg/tgb.Middleware].
 //
 // This middleware do following:
 //  1. fetch session data from [Store] or create new one if it doesn't exist.

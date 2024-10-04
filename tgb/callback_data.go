@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mr-linch/go-tg"
+	"github.com/nosefu/go-tg"
 )
 
 // CallbackDataCodec is a helper for parsing and serializing callback data.

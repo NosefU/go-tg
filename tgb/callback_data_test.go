@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	tg "github.com/mr-linch/go-tg"
+	tg "github.com/nosefu/go-tg"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

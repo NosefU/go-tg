@@ -11,7 +11,7 @@ import (
 	"net/netip"
 	"time"
 
-	tg "github.com/mr-linch/go-tg"
+	tg "github.com/nosefu/go-tg"
 	"github.com/tomasen/realip"
 	"golang.org/x/exp/slices"
 )

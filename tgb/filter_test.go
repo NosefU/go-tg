@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"testing"
 
-	tg "github.com/mr-linch/go-tg"
+	tg "github.com/nosefu/go-tg"
 	"github.com/stretchr/testify/assert"
 )
 

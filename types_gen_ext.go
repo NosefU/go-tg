@@ -206,7 +206,7 @@ func (arg *FileArg) getRef() string {
 	return ""
 }
 
-//go:generate go run github.com/mr-linch/go-tg-gen@latest -types-output types_gen.go
+//go:generate go run github.com/nosefu/go-tg-gen@latest -types-output types_gen.go
 
 func (chat Chat) PeerID() string {
 	return chat.ID.PeerID()

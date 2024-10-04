@@ -10,9 +10,9 @@ import (
 
 	_ "embed"
 
-	"github.com/mr-linch/go-tg"
-	"github.com/mr-linch/go-tg/examples"
-	"github.com/mr-linch/go-tg/tgb"
+	"github.com/nosefu/go-tg"
+	"github.com/nosefu/go-tg/examples"
+	"github.com/nosefu/go-tg/tgb"
 )
 
 var (
@@ -31,7 +31,7 @@ func main() {
 					tg.HTML.Italic("🚀 Powered by", tg.HTML.Spoiler("go-tg")),
 				),
 			).LinkPreviewOptions(tg.LinkPreviewOptions{
-				URL:              "https://github.com/mr-linch/go-tg",
+				URL:              "https://github.com/nosefu/go-tg",
 				PreferLargeMedia: true,
 			}).DoVoid(ctx)
 

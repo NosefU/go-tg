@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/mr-linch/go-tg"
+	"github.com/nosefu/go-tg"
 )
 
 // ErrorHandler define interface for error handling in Bot.

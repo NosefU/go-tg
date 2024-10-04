@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 
-	"github.com/mr-linch/go-tg"
-	"github.com/mr-linch/go-tg/examples"
-	"github.com/mr-linch/go-tg/tgb"
+	"github.com/nosefu/go-tg"
+	"github.com/nosefu/go-tg/examples"
+	"github.com/nosefu/go-tg/tgb"
 )
 
 var menu = struct {

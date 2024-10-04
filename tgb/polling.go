@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	tg "github.com/mr-linch/go-tg"
+	tg "github.com/nosefu/go-tg"
 )
 
 // Poller is a long polling update deliverer.

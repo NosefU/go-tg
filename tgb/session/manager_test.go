@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/mr-linch/go-tg"
-	"github.com/mr-linch/go-tg/tgb"
+	"github.com/nosefu/go-tg"
+	"github.com/nosefu/go-tg/tgb"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"

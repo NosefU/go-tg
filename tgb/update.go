@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"sync"
 
-	"github.com/mr-linch/go-tg"
+	"github.com/nosefu/go-tg"
 )
 
 // Update wraps around a tg.Update.
