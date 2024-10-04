@@ -124,15 +124,13 @@ func TestRouter(t *testing.T) {
 
 		var isMiddelwareCallled bool
 
-		router.Use(
-			MiddlewareFunc(func(next Handler) Handler {
-				return HandlerFunc(func(ctx context.Context, update *Update) error {
-					assert.NotNil(t, update)
+		router.GlobalUse(
+			func(ctx context.Context, update *Update) (context.Context, *Update, error) {
+				assert.NotNil(t, update)
 
-					isMiddelwareCallled = true
-					return next.Handle(ctx, update)
-				})
-			}),
+				isMiddelwareCallled = true
+				return ctx, update, nil
+			},
 		)
 
 		{

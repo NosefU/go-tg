@@ -7,6 +7,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestGlobalChain_Append(t *testing.T) {
+	old := globalChain{}
+	new := old.Append(
+		func(ctx context.Context, update *Update) (context.Context, *Update, error) {
+			return ctx, update, nil
+		},
+	)
+
+	assert.Len(t, old, 0)
+	assert.Len(t, new, 1)
+}
+
 func TestChain_Append(t *testing.T) {
 	old := chain{}
 	new := old.Append(MiddlewareFunc(func(h Handler) Handler { return h }))
