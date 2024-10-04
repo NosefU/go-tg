@@ -23,15 +23,8 @@ func (c chain) Append(mws ...Middleware) chain {
 
 // Then wraps handler with middleware chain.
 func (c chain) Then(handler Handler) Handler {
-	var mws chain
-	if len(c) > 1 {
-		// move filter in front of middlewares
-		mws = append(c[len(c)-1:], c[:len(c)-1]...)
-	} else {
-		mws = c
-	}
-	for i := range mws {
-		handler = mws[len(mws)-1-i].Wrap(handler)
+	for i := range c {
+		handler = c[len(c)-1-i].Wrap(handler)
 	}
 
 	return handler
