@@ -15,7 +15,8 @@ type ErrorHandler func(ctx context.Context, update *Update, err error) error
 // Router is a router for incoming Updates.
 // tg.Update should be wrapped into tgb.Update with binded Client and Update.
 type Router struct {
-	chain chain
+	chain       chain       // old middlewares
+	globalChain globalChain // new middlewares
 
 	typedHandlers  map[tg.UpdateType][]Handler
 	updateHandlers []Handler
@@ -28,6 +29,7 @@ type Router struct {
 func NewRouter() *Router {
 	return &Router{
 		chain:         chain{},
+		globalChain:   globalChain{},
 		typedHandlers: map[tg.UpdateType][]Handler{},
 		defaultHandler: HandlerFunc(func(ctx context.Context, update *Update) error {
 			return nil
@@ -72,8 +74,16 @@ func filterMiddleware(filter Filter) Middleware {
 
 // Use add middleware to chain handlers.
 // Should be called before any other register handler.
+//
+// Deprecated: Causes performance issues and breaks routing logic. Use GlobalUse
 func (bot *Router) Use(mws ...Middleware) *Router {
 	bot.chain = bot.chain.Append(mws...)
+	return bot
+}
+
+// GlobalUse add middleware to chain handlers.
+func (bot *Router) GlobalUse(mws ...GlobalMiddlewareFunc) *Router {
+	bot.globalChain = bot.globalChain.Append(mws...)
 	return bot
 }
 
@@ -225,6 +235,18 @@ func (bot *Router) getDefaultHandler() Handler {
 
 // Handle handles an Update.
 func (bot *Router) Handle(ctx context.Context, update *Update) error {
+	// apply middlewares
+	var err error
+	for _, mw := range bot.globalChain {
+		ctx, update, err = mw(ctx, update)
+		if err != nil {
+			if bot.errorHandler != nil {
+				return bot.errorHandler(ctx, update, err)
+			}
+			return err
+		}
+	}
+
 	group := append([]Handler{}, bot.updateHandlers...)
 
 	typed, ok := bot.typedHandlers[update.Type()]

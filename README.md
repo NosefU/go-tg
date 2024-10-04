@@ -28,6 +28,9 @@
   - [Receive updates via Polling](#receive-updates-via-polling)
   - [Receive updates via Webhook](#receive-updates-via-webhook)
   - [Routing updates](#routing-updates)
+    - [tgb.Filter](#tgbfilter)
+    - [tgb.GlobalMiddlewareFunc](#tgbglobalmiddlewarefunc)
+    - [Error Handler](#error-handler)
 - [Extensions](#extensions)
   - [Sessions](#sessions)
 - [Related Projects](#related-projects)
@@ -355,7 +358,7 @@ defer f.Close()
 
 ### Interceptors
 
-Interceptors are used to modify or process the request before it is sent to the server and the response before it is returned to the caller. It's like a [[tgb.Middleware](https://pkg.go.dev/github.com/nosefu/go-tg/tgb#Middleware)], but for outgoing requests.
+Interceptors are used to modify or process the request before it is sent to the server and the response before it is returned to the caller. It's like a [[tgb.GlobalMiddlewareFunc](#tgbglobalmiddlewarefunc)], but for outgoing requests.
 
 All interceptors should be registered on the client before the request is made.
 
@@ -654,7 +657,8 @@ var isDocumentPhoto = tgb.All(
 )
 ```
 
-#### [tgb.Middleware](https://pkg.go.dev/github.com/mr-linch/go-tg/tgb#Middleware)
+#### ~~[tgb.Middleware](https://pkg.go.dev/github.com/mr-linch/go-tg/tgb#Middleware)~~
+**Deprecaded. Use [tgb.GlobalMiddlewareFunc](#tgbglobalmiddlewarefunc)**
 
 Middleware is used to modify or process the Update before it is passed to the handler.
 All middleware should be registered before the handlers registration.
@@ -670,6 +674,22 @@ router.Use(func(next tgb.Handler) tgb.Handler {
 
     return next(ctx, update)
   })
+})
+```
+
+#### tgb.GlobalMiddlewareFunc
+
+Middleware is used to modify or process the Update before it is passed to the handler.
+
+e.g. log all updates
+
+```go
+router.GlobalUse(func(ctx context.Context, update *tgb.Update) (context.Context, *tgb.Update, error) {
+    defer func(started time.Time) {
+      log.Printf("%#v [%s]", update, time.Since(started))
+    }(time.Now())
+    
+    return ctx, update, nil
 })
 ```
 
